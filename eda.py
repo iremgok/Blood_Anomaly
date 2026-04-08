@@ -2,10 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-# Grafik ayarları
-plt.rcParams["figure.figsize"] = (12, 6)
-plt.rcParams["figure.dpi"] = 100
+from sklearn.model_selection import train_test_split
 
 def run_eda(df):
     print("\n--- EDA Süreci Başlatılıyor ---")
@@ -39,11 +36,21 @@ def run_eda(df):
     plt.legend(title="Anomali", labels=["Sağlıklı (0)", "Anormal (1)"])
     plt.show()
 
-    # 2. HEDEF ANALİZİ (Uyarılar Düzeltildi)
+    # 2. HEDEF ANALİZİ
     plt.figure(figsize=(8, 5))
-    # eda.py içindeki countplot satırı:
-    sns.countplot(data=df, x='anomaly_label', hue='anomaly_label', palette="Set2", legend=False)
+    label_order = sorted(df["anomaly_label"].dropna().unique())
+    sns.countplot(
+        data=df,
+        x="anomaly_label",
+        hue="anomaly_label",
+        order=label_order,
+        hue_order=label_order,
+        palette=["#2563EB", "#7C3AED"][: len(label_order)],
+        legend=False,
+        dodge=False,
+    )
     plt.title("Hedef Değişken Dağılımı")
+    plt.xlabel("anomaly_label")
     plt.show()
 
     plt.figure(figsize=(8, 5))
@@ -64,18 +71,49 @@ def run_eda(df):
     numeric_df = df.select_dtypes(include=[np.number])
     corr = numeric_df.corr()
 
-    # Sadece anlamlı korelasyonları vurgulamak için annot=True
-    sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5, cbar_kws={"shrink": .8})
+    corr_cmap = sns.diverging_palette(250, 330, s=88, l=58, as_cmap=True)
+    sns.heatmap(
+        corr,
+        annot=True,
+        cmap=corr_cmap,
+        center=0,
+        fmt=".2f",
+        linewidths=0.5,
+        cbar_kws={"shrink": 0.8},
+    )
     plt.title("Özellikler Arası Tam Korelasyon Matrisi")
     plt.show()
 
-    # 4. PAIRPLOT (YENİ - En Önemli Özelliklerin Etkileşimi)
-    # Veri çok büyükse ilk 500-1000 satırı seçmek mantıklı olabilir
-    top_features = ['cell_diameter_um', 'nucleus_area_pct', 'chromatin_density', 'anomaly_label']
+    # 4. PAIRPLOT (büyük veride hız + tabakalı örnek; başlık için üst boşluk)
+    top_features = ["cell_diameter_um", "nucleus_area_pct", "chromatin_density", "anomaly_label"]
     if all(col in df.columns for col in top_features):
-        print("Pairplot oluşturuluyor (Bu işlem veri boyutuna göre zaman alabilir)...")
-        sns.pairplot(df[top_features], hue='anomaly_label', palette="husl", diag_kind="kde", plot_kws={'alpha': 0.5})
-        plt.suptitle("Kritik Morfolojik Özelliklerin Birbirleriyle İlişkisi", y=1.02)
+        pairplot_max = 800
+        plot_df = df[top_features].dropna()
+        if len(plot_df) > pairplot_max:
+            plot_df, _ = train_test_split(
+                plot_df,
+                train_size=pairplot_max,
+                stratify=plot_df["anomaly_label"],
+                random_state=42,
+            )
+            print(
+                f"Pairplot: {pairplot_max} satırlık tabakalı alt örnek (toplam {len(df)} satır)."
+            )
+        else:
+            print("Pairplot oluşturuluyor...")
+        g = sns.pairplot(
+            plot_df,
+            hue="anomaly_label",
+            palette="husl",
+            diag_kind="kde",
+            plot_kws={"alpha": 0.5},
+        )
+        g.fig.subplots_adjust(top=0.92)
+        g.fig.suptitle(
+            "Kritik Morfolojik Özelliklerin Birbirleriyle İlişkisi",
+            fontsize=14,
+            y=0.98,
+        )
         plt.show()
 
     # 5. JOINTPLOT (Hücre Çapı vs Çekirdek Alanı)
@@ -84,8 +122,13 @@ def run_eda(df):
             data=df, x='cell_diameter_um', y='nucleus_area_pct',
             hue='anomaly_label', kind="kde", fill=True, palette="magma"
         )
-        g.fig.suptitle("Hücre Çapı ve Çekirdek Alanı Yoğunluk Analizi", y=1.02, fontsize=14)
-        g.fig.subplots_adjust(top=0.92)
+        # Üst başlık: top çok yüksekse suptitle figür dışında kalır / kırpılır.
+        g.fig.subplots_adjust(top=0.88)
+        g.fig.suptitle(
+            "Hücre Çapı ve Çekirdek Alanı Yoğunluk Analizi",
+            fontsize=14,
+            y=0.99,
+        )
         plt.show()
 
     # 6. RENK VE BOYAMA ANALİZİ (YENİ)

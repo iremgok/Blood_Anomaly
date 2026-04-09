@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a625bc30-bba2-4c5c-8f2d-7ee0aef5029e" name="Changes" comment="Project created">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="a625bc30-bba2-4c5c-8f2d-7ee0aef5029e" name="Changes" comment="Overfitting was prevented.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eda.py" beforeDir="false" afterPath="$PROJECT_DIR$/eda.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -28,21 +28,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "iremgok"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;iremgok&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/iremgok/Blood_Anomaly.git",
-    "accountId": "bbf4ac1d-2d9c-403d-84f9-4dd3e0060474"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/iremgok/Blood_Anomaly.git&quot;,
+    &quot;accountId&quot;: &quot;bbf4ac1d-2d9c-403d-84f9-4dd3e0060474&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="3C5YbwOLEN47AHDn8CnSmGebSX1" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -56,6 +56,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.eda.executor": "Run",
+    "Python.evaluation.executor": "Run",
     "Python.main.executor": "Run",
     "Python.preprocessor.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -88,11 +89,20 @@
       <option name="project" value="LOCAL" />
       <updated>1775687711454</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Overfitting was prevented.">
+      <option name="closed" value="true" />
+      <created>1775689825962</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1775689825962</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Project created" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project created" />
+    <MESSAGE value="Overfitting was prevented." />
+    <option name="LAST_COMMIT_MESSAGE" value="Overfitting was prevented." />
   </component>
 </project>

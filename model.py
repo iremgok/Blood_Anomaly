@@ -2,12 +2,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from xgboost import XGBClassifier
 
-
 def get_models(scale_pos_weight: float):
-    """
-    Sadece model tanımlarını döndürür. Eğitim main içinde tek veri akışıyla yapılır.
-    Hiperparametreler overfitting'i azaltacak şekilde sınırlandırılmıştır.
-    """
+
     models = {
         "Random Forest": RandomForestClassifier(
             n_estimators=200,
@@ -17,8 +13,8 @@ def get_models(scale_pos_weight: float):
             max_features="sqrt",
             class_weight="balanced",
             random_state=42,
-            n_jobs=-1,
-        ),
+            n_jobs=-1),
+
         "XGBoost": XGBClassifier(
             n_estimators=200,
             max_depth=4,
@@ -31,15 +27,13 @@ def get_models(scale_pos_weight: float):
             scale_pos_weight=scale_pos_weight,
             eval_metric="logloss",
             random_state=42,
-            n_jobs=-1,
-        ),
+            n_jobs=-1),
+
         "SVM": SVC(
             kernel="rbf",
             C=0.5,
             gamma="scale",
             probability=True,
             class_weight="balanced",
-            random_state=42,
-        ),
-    }
+            random_state=42) }
     return models

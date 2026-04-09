@@ -8,15 +8,13 @@ from preprocessor import preprocess_data
 
 
 def main():
-    print("Kan Hücresi Anormallik Tespiti 2025 Projesi Başlatılıyor...")
+    print("Kan Hücresi Anormallik Tespiti 2025 Projesi")
 
     X, y = preprocess_data("blood_cell_anomaly_detection.csv")
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
-    )
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
-    # Eğitim kümesine göre doldurma ve ölçekleme (teste bilgi sızmaz)
+    # Eğitim kümesine göre doldurma ve ölçekleme böylelikle teste bilgi sızmaz
     imputer = SimpleImputer(strategy="median")
     X_train_imp = imputer.fit_transform(X_train)
     X_test_imp = imputer.transform(X_test)
@@ -37,23 +35,15 @@ def main():
     for name, model in models.items():
         print(f"\n--- {name} İşleniyor ---")
         model.fit(X_train_df, y_train)
-        metrics = run_evaluation(
-            model=model,
-            X_test=X_test_df,
-            y_test=y_test,
-            model_name=name,
-            feature_names=feature_names,
-            X_train=X_train_df,
-            y_train=y_train,
-        )
+        metrics = run_evaluation(model=model, X_test=X_test_df, y_test=y_test, model_name=name, feature_names=feature_names,
+                                 X_train=X_train_df,  y_train=y_train)
         all_results.append(metrics)
 
     print("\n" + "=" * 50)
-    print("FİNAL PERFORMANS KARŞILAŞTIRMASI (Test)")
+    print("Performans Karşılaştırmaları")
     print("=" * 50)
     results_df = pd.DataFrame(all_results).sort_values(by="F1", ascending=False)
     print(results_df.to_string(index=False))
-
 
 if __name__ == "__main__":
     main()

@@ -7,9 +7,9 @@ from sklearn.metrics import (accuracy_score, auc,
     f1_score, precision_score, recall_score, roc_curve)
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 
-def run_evaluation(model, X_test, y_test, model_name, feature_names, X_train=None, y_train=None):
 
-    print(f"\n{'=' * 45}\n{model_name.upper()}  ANALİZ \n{'=' * 45}")
+def run_evaluation(model, X_test, y_test, model_name, feature_names, X_train=None, y_train=None):
+    print(f"\n{model_name.upper()}  ANALİZ \n")
     if X_train is not None and y_train is not None:
         print("\nCross Validation (5-Fold, F1)...")
         cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
@@ -51,9 +51,9 @@ def run_evaluation(model, X_test, y_test, model_name, feature_names, X_train=Non
         axes[2].barh(range(len(indices)), importances[indices], color="teal")
         axes[2].set_yticks(range(len(indices)))
         axes[2].set_yticklabels([feature_names[i] for i in indices])
-        axes[2].set_title("En yüksek 10 özellik önemi")
+        axes[2].set_title("En Yüksek 10 Özellik")
     else:
-        axes[2].text(0.5, 0.5, "Özellik önemi yok\n(SVM)", ha="center", va="center", transform=axes[2].transAxes)
+        axes[2].text(0.5, 0.5, "Özellik Önemi Yok\n(SVM)", ha="center", va="center", transform=axes[2].transAxes)
 
     if y_probs is not None:
         fpr, tpr, _ = roc_curve(y_test, y_probs)
@@ -62,7 +62,6 @@ def run_evaluation(model, X_test, y_test, model_name, feature_names, X_train=Non
         axes[3].plot([0, 1], [0, 1], color="navy", linestyle="--")
         axes[3].set_title("ROC (Test)")
         axes[3].legend(loc="lower right")
-
     plt.tight_layout()
     plt.show()
 

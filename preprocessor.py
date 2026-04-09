@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from eda import run_eda
 
-# tahmin anında genelde olmaz
+# tahmin anında genelde olmazlar
 LEAKY_FEATURE_COLS = ["cytodiffusion_anomaly_score", "cytodiffusion_classification_confidence", "labeller_confidence_score",]
 
 # modelde sızıntı riski
@@ -62,7 +62,7 @@ def preprocess_data(csv_file="blood_cell_anomaly_detection.csv", run_eda_plots=T
         post_eda_drop.append(CELL_TYPE_EXCLUDE_AFTER_EDA)
     if post_eda_drop:
         print(
-            f"\n[INFO] Model öncesi çıkarılan sütunlar: {post_eda_drop} "
+            f"\n Model öncesi çıkarılan sütunlar: {post_eda_drop} "
             "EDA tamamlandı.")
         df = df.drop(columns=post_eda_drop)
 
@@ -87,6 +87,6 @@ def preprocess_data(csv_file="blood_cell_anomaly_detection.csv", run_eda_plots=T
     # ölçeklenmemiş veri
     out = pd.concat([X, y], axis=1)
     out.to_csv("processed_blood_data.csv", index=False)
-    print("\nİşlenmiş veri kaydedildi: processed_blood_data.csv")
+    print("\nİşlenmiş veriler kaydedildi: processed_blood_data.csv")
 
     return X, y

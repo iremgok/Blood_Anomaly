@@ -33,7 +33,7 @@ def main():
     all_results = []
 
     for name, model in models.items():
-        print(f"\n--- {name} İşleniyor ---")
+        print(f"\n{name} İşleniyor")
         model.fit(X_train_df, y_train)
         metrics = run_evaluation(model=model, X_test=X_test_df, y_test=y_test, model_name=name, feature_names=feature_names,
                                  X_train=X_train_df,  y_train=y_train)

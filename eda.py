@@ -8,8 +8,7 @@ def run_eda(df):
     print("\n EDA Süreci Başlatılıyor")
     sns.set_theme(style="whitegrid")
 
-    # 1. KRİTİK DEĞİŞKENLERİN SEÇİMİ
-    # Morfolojik, Klinik ve Renksel özellikleri gruplayalım
+    # Kritik değişkenlerin seçimi Morfolojik, Klinik ve Renksel özellikleri gruplayalım
     important_numeric = ['cell_diameter_um', 'nucleus_area_pct', 'chromatin_density',
         'hemoglobin_g_dl', 'wbc_count_per_ul', 'stain_intensity']
 
@@ -47,7 +46,6 @@ def run_eda(df):
     sns.countplot(data=df, x='cell_type', hue='cell_type', palette="viridis", legend=False)
     plt.title("Hücre Türü Dağılımı")
     plt.show()
-
 
     # Çap ve çekirdek oranı ilişkisi
     if 'cell_diameter_um' in df.columns and 'nucleus_area_pct' in df.columns:
@@ -93,7 +91,7 @@ def run_eda(df):
     if 'mean_r' in df.columns and 'stain_intensity' in df.columns:
         plt.figure(figsize=(10, 6))
         sns.kdeplot(data=df, x='mean_r', y='stain_intensity', hue='anomaly_label', fill=True, alpha=0.4)
-        plt.title("Renk (Kırmızı Kanalı) vs Boyama Yoğunluğu İlişkisi")
+        plt.title("Renk vs Boyama Yoğunluğu İlişkisi")
         plt.show()
 
     # violinplot
